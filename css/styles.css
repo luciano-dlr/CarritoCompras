@@ -1,0 +1,11 @@
+.pageTitle{
+    display: flex;
+    justify-content: center;
+}
+.main{
+    display: flex;
+    justify-content: space-around;
+}
+.main__card--img{
+    width: 50vh;
+}

@@ -26,7 +26,7 @@ function consultarPrecio() {
     }
 }
 
-consultarPrecio();
+// consultarPrecio();
 
 
 const productosAgregados = [];
@@ -48,9 +48,10 @@ const comprar = () => {
     }
 }
 
-comprar();
+// comprar();
 
-// const contenedorTienda = document.getElementById('contenedorTienda');
-// const contenedorCarrito = document.getElementById('contenedorCarrito');
-// const carrito = []
+
+const tortaItem = document.getElementsByClassName('main__card--img')
+console.log(tortaItem)
+
 
