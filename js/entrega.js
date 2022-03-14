@@ -26,7 +26,7 @@ function consultarPrecio() {
     }
 }
 
-// consultarPrecio();
+consultarPrecio();
 
 
 const productosAgregados = [];
@@ -48,7 +48,7 @@ const comprar = () => {
     }
 }
 
-// comprar();
+comprar();
 
 // const contenedorTienda = document.getElementById('contenedorTienda');
 // const contenedorCarrito = document.getElementById('contenedorCarrito');
