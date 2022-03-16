@@ -26,7 +26,7 @@ function consultarPrecio() {
     }
 }
 
-// consultarPrecio();
+consultarPrecio();
 
 
 const productosAgregados = [];
@@ -48,10 +48,12 @@ const comprar = () => {
     }
 }
 
-// comprar();
+comprar();
 
 
 const tortaItem = document.getElementsByClassName('main__card--img')
 console.log(tortaItem)
+
+
 
 
