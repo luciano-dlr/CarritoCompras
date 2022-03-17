@@ -1,9 +1,12 @@
+//  Arrays
 const productos = [
     { id: 0, tipo: "simple", producto: "chocotorta", precio: 450, img: "img/chocotorta.jpg" },
     { id: 1, tipo: "simple", producto: "cheesecake", precio: 550, img: "img/cheesecake.jpg" },
     { id: 2, tipo: "alta", producto: "matilda", precio: 625, img: "img/matilda.jpg" },
     { id: 3, tipo: "alta", producto: "oreo", precio: 600, img: "img/oreo.jpg" },
 ];
+
+//  Funcion Consulta precio por prompt
 function consultarPrecio() {
     let pedido = prompt("Que producto desea consultar? `chocotorta``cheesecake``matilda``oreo`")
     if (pedido == "oreo") {
@@ -28,7 +31,7 @@ function consultarPrecio() {
 
 // consultarPrecio();
 
-
+// Funcion Suma de articulos ingresados por Prompt
 const productosAgregados = [];
 
 const suma = (array) => {
@@ -50,41 +53,36 @@ const comprar = () => {
 
 // comprar();
 
-
+//   Traer imagenes por class
 const tortaItem = document.getElementsByClassName('main__card--img')
 // console.log(tortaItem)
 
+//  Buscar un Producto especifico
 const buscarProducto = productos.find(producto => producto.producto === "chocotorta");
 // console.log(buscarProducto);
 
+// filtro por Categorias de tortas
 const buscarSimple = productos.filter(producto => producto.tipo === "simple");
 const buscarAlta = productos.filter(producto => producto.tipo === "alta");
 
+// Traer todos los precios con iva 
 const productosConIva = productos.map(producto => {
     return { tipo: producto.tipo, producto: producto.producto, precio: producto.precio + (producto.precio * 1.21) }
 })
 
 
-
+// Precio total de todos los articulos en venta
 const preciosTotal = productos.reduce((acumulador, producto) => acumulador + producto.precio, 0);
-
 // console.dir(document.body);
 
-const card1 = document.getElementById('card1');
-// card1.innerHTML = 'chocotorta'
 
-// console.log(card1)
-
-const cards = document.getElementsByClassName('main__card')
-// console.log(cards)
+// Nodos
 
 let tituloPagina = document.getElementById('pageTitle')
 tituloPagina.className = "pageTitle"
 tituloPagina.innerHTML = "VENTA DE TORTAS"
 
-// Nodos
 
-// const contenedorCarrito = document.getElementById('contenedorCarrito');
 
 const carrito = [];
 
@@ -108,8 +106,10 @@ for (const producto of productos) {
     container.append(cardCinco);
     cardCinco.append(botonComprar)
 
-
+    // BOTON ROTO
     botonComprar.onclick = () => {
+        // alert("error")
+        console.log(botonComprar)
         const productoComprado = productos.find(producto => producto.id === botonComprar.id);
         carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio })
         console.log(productoComprado)
