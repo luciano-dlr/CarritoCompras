@@ -114,5 +114,4 @@ for (const producto of productos) {
         carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio })
         console.log(productoComprado)
     }
-
 }
