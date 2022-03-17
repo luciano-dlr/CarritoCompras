@@ -31,27 +31,6 @@ function consultarPrecio() {
 
 // consultarPrecio();
 
-// Funcion Suma de articulos ingresados por Prompt
-const productosAgregados = [];
-
-const suma = (array) => {
-    return array.reduce((acumulador, el) => acumulador + el.precio, 0);
-}
-
-const comprar = () => {
-    let envio = prompt("Que producto desea comprar? inrese el `nombre` o `terminar` ");
-    if (envio === "terminar") {
-
-        alert(`Precio Final ${suma(productosAgregados)} Pesos`);
-    } else {
-        const productoSeleccionado = productos.find(productos => productos.producto === envio);
-        productosAgregados.push(productoSeleccionado);
-        console.log(productoSeleccionado);
-        comprar()
-    }
-}
-
-// comprar();
 
 //   Traer imagenes por class
 const tortaItem = document.getElementsByClassName('main__card--img')
@@ -84,7 +63,7 @@ tituloPagina.innerHTML = "VENTA DE TORTAS"
 
 
 
-const carrito = [];
+// const carrito = [];
 
 for (const producto of productos) {
 
@@ -93,24 +72,35 @@ for (const producto of productos) {
     const botonComprar = document.createElement('button');
     const img = `<img src="${producto.img}" alt="" class="main__card--img"</img>`;
     const precio = `<h3>$${producto.precio}</h3>`;
-
-
-    botonComprar.className = 'btn btn-primary';
-    botonComprar.id = producto.id;
-    botonComprar.append('comprar');
+    const carritoLista = document.getElementById('container2')
 
     cardCinco.className = "main__card card";
+    botonComprar.className = 'btn btn-primary';
+    botonComprar.id = producto.id;
+
     cardCinco.innerHTML = img;
     cardCinco.innerHTML += `<h5>${producto.producto}</h5>`;
     cardCinco.innerHTML += precio;
+
+
+    botonComprar.append('comprar');
     container.append(cardCinco);
     cardCinco.append(botonComprar)
+
 
     botonComprar.onclick = () => {
         let productoComprado = productos.find(producto => producto.id === botonComprar.id);
         productoComprado = carrito.push({ producto: producto.producto, precio: producto.precio });
         // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
-        console.log(carrito)
+
+        carritoLista.append(`${producto.producto}$${producto.precio}..........`)
+
     }
 
 }
+const carrito = [];
+console.log(carrito)
+
+
+
+
