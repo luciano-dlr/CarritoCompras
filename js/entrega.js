@@ -1,8 +1,8 @@
 const productos = [
-    { tipo: "simple", producto: "chocotorta", precio: 450 },
-    { tipo: "simple", producto: "cheesecake", precio: 550 },
-    { tipo: "alta", producto: "matilda", precio: 625 },
-    { tipo: "alta", producto: "oreo", precio: 600 },
+    { id: 0, tipo: "simple", producto: "chocotorta", precio: 450, img: "img/chocotorta.jpg" },
+    { id: 1, tipo: "simple", producto: "cheesecake", precio: 550, img: "img/cheesecake.jpg" },
+    { id: 2, tipo: "alta", producto: "matilda", precio: 625, img: "img/matilda.jpg" },
+    { id: 3, tipo: "alta", producto: "oreo", precio: 600, img: "img/oreo.jpg" },
 ];
 function consultarPrecio() {
     let pedido = prompt("Que producto desea consultar? `chocotorta``cheesecake``matilda``oreo`")
@@ -79,79 +79,40 @@ const cards = document.getElementsByClassName('main__card')
 // console.log(cards)
 
 let tituloPagina = document.getElementById('pageTitle')
+tituloPagina.className = "pageTitle"
 tituloPagina.innerHTML = "VENTA DE TORTAS"
 
 // Nodos
+
+// const contenedorCarrito = document.getElementById('contenedorCarrito');
+
+const carrito = [];
 
 for (const producto of productos) {
 
     const container = document.getElementById('container');
     const cardCinco = document.createElement('div');
-    cardCinco.className = "main__card card"
-    cardCinco.innerHTML = "<h5> nueva torta </h5>";
-    container.appendChild(cardCinco)
-    console.log(cardCinco)
+    const botonComprar = document.createElement('button');
+    const img = `<img src="${producto.img}" alt="" class="main__card--img"</img>`;
+    const precio = `<h3>$${producto.precio}</h3>`;
+
+
+    botonComprar.className = 'btn btn-primary';
+    botonComprar.id = producto.id;
+    botonComprar.append('comprar');
+
+    cardCinco.className = "main__card card";
+    cardCinco.innerHTML = img;
+    cardCinco.innerHTML += `<h5>${producto.producto}</h5>`;
+    cardCinco.innerHTML += precio;
+    container.append(cardCinco);
+    cardCinco.append(botonComprar)
+
+
+    botonComprar.onclick = () => {
+        const productoComprado = productos.find(producto => producto.id === botonComprar.id);
+        carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio })
+        console.log(productoComprado)
+    }
 
 }
-
-
-
-
-
-
-
-
-// const contenedorTienda = document.getElementById('contenedorTienda');
-// const contenedorCarrito = document.getElementById('contenedorCarrito');
-// const carrito = []
-// for (const producto of productos) {
-
-//     //Creamos los elementos HTML
-//     const divProducto = document.createElement('div');
-//     const imgProducto = document.createElement('img');
-//     const nombreProducto = document.createElement('h2');
-//     const precioProducto = document.createElement('h3');
-//     const botonComprar = document.createElement('button');
-
-//     //Les agregamos los estilos asignandoles clases de css
-//     divProducto.className = 'card';
-//     imgProducto.className = 'card-img-top';
-//     nombreProducto.className = 'nombre-producto';
-//     precioProducto.className = 'card-precio';
-//     botonComprar.className = 'btn btn-primary';
-
-//     //Le agregamos el contenido a los elementos creados y el id a los que vamos a necesitar despues
-//     imgProducto.src = producto.img;
-//     nombreProducto.append(producto.modelo);
-//     precioProducto.append(`$${producto.precio}`);
-//     botonComprar.append('Comprar');
-//     botonComprar.id = `${producto.id}`;
-
-//     botonComprar.onclick = () => {
-//         const productoComprado = productos.find(producto => producto.id === botonComprar.id);
-//         carrito.push({ nombre: productoComprado.modelo, precio: productoComprado.precio })
-//     }
-//     //Agregamos los elementos creados a su elemento contenedor que es divProducto
-//     divProducto.append(imgProducto, nombreProducto, precioProducto, botonComprar);
-//     //Le agregamos al contenedor de la tienda cada uno de los divProducto
-//     contenedorTienda.append(divProducto);
-
-// }
-
-// const mostrarCarrito = () => {
-
-//     for (const producto of carrito) {
-//         const nombreProducto = `<h4>Producto : ${producto.nombre}</h4>`
-//         const precioProducto = `<h4>Precio : ${producto.precio}</h4>`
-//         contenedorCarrito.innerHTML += nombreProducto
-//         contenedorCarrito.innerHTML += precioProducto
-//     }
-
-//     const total = carrito.reduce((accumulador, producto) => accumulador + producto.precio, 0);
-//     contenedorCarrito.append(`Total Compra :  ${total}`)
-
-// }
-
-// let botonCarrito = document.getElementById("btnCarrito")
-// botonCarrito.onclick = mostrarCarrito;
-
