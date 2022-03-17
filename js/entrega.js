@@ -106,12 +106,11 @@ for (const producto of productos) {
     container.append(cardCinco);
     cardCinco.append(botonComprar)
 
-    // BOTON ROTO
     botonComprar.onclick = () => {
-        // alert("error")
-        console.log(botonComprar)
-        const productoComprado = productos.find(producto => producto.id === botonComprar.id);
-        carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio })
-        console.log(productoComprado)
+        let productoComprado = productos.find(producto => producto.id === botonComprar.id);
+        productoComprado = carrito.push({ producto: producto.producto, precio: producto.precio });
+        // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
+        console.log(carrito)
     }
+
 }
