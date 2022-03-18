@@ -65,6 +65,7 @@ tituloPagina.innerHTML = "VENTA DE TORTAS"
 
 // const carrito = [];
 
+const carrito = [];
 for (const producto of productos) {
 
     const container = document.getElementById('container');
@@ -93,13 +94,31 @@ for (const producto of productos) {
         productoComprado = carrito.push({ producto: producto.producto, precio: producto.precio });
         // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
 
-        carritoLista.append(`${producto.producto}$${producto.precio}..........`)
-
+        // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
+        console.log(carrito)
     }
 
 }
-const carrito = [];
-console.log(carrito)
+
+const totales = carrito
+
+
+const botonTotal = document.getElementById('button')
+
+botonTotal.className = 'btn btn-outline-danger ';
+botonTotal.innerHTML = 'Mostrar Total';
+botonTotal.onclick = () => {
+    totales.map(producto => {
+        // console.log(producto)
+        return { producto: producto.producto, precio: producto.precio }
+
+    })
+    console.log(totales, 'totales')
+}
+
+
+
+
 
 
 
