@@ -51,7 +51,9 @@ const productosConIva = productos.map(producto => {
 
 
 // Precio total de todos los articulos en venta
-const preciosTotal = productos.reduce((acumulador, producto) => acumulador + producto.precio, 0);
+// const preciosTotal = carrito.reduce((acumulador, producto) => acumulador + producto.precio, 0);
+// const preciosTotal = productos.reduce((acumulador, producto) => acumulador + producto.precio, 0);
+// console.log(preciosTotal)
 // console.dir(document.body);
 
 
@@ -66,6 +68,7 @@ tituloPagina.innerHTML = "VENTA DE TORTAS"
 // const carrito = [];
 
 const carrito = [];
+
 for (const producto of productos) {
 
     const container = document.getElementById('container');
@@ -73,7 +76,7 @@ for (const producto of productos) {
     const botonComprar = document.createElement('button');
     const img = `<img src="${producto.img}" alt="" class="main__card--img"</img>`;
     const precio = `<h3>$${producto.precio}</h3>`;
-    const carritoLista = document.getElementById('container2')
+
 
     cardCinco.className = "main__card card";
     botonComprar.className = 'btn btn-primary';
@@ -102,8 +105,13 @@ for (const producto of productos) {
 
 const totales = carrito
 
-
 const botonTotal = document.getElementById('button')
+
+
+const final = document.getElementById('carrito')
+final.className = 'list-group-item';
+final.innerHTML += `<h5>Lista final:</h5>`;
+// final.innerHTML = `${totales.precio}`;
 
 botonTotal.className = 'btn btn-outline-danger ';
 botonTotal.innerHTML = 'Mostrar Total';
@@ -114,11 +122,9 @@ botonTotal.onclick = () => {
 
     })
     console.log(totales, 'totales')
+
+    final.append(totales)
 }
-
-
-
-
 
 
 
