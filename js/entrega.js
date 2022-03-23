@@ -105,6 +105,7 @@ for (const producto of productos) {
 
 const totales = carrito
 
+
 const botonTotal = document.getElementById('button')
 
 
@@ -114,7 +115,7 @@ final.innerHTML += `<h5>Lista final:</h5>`;
 // final.innerHTML = `${totales.precio}`;
 
 botonTotal.className = 'btn btn-outline-danger ';
-botonTotal.innerHTML = 'Mostrar Total';
+botonTotal.innerHTML = 'Confirmar';
 botonTotal.onclick = () => {
     totales.map(producto => {
         // console.log(producto)
@@ -123,10 +124,11 @@ botonTotal.onclick = () => {
     })
     console.log(totales, 'totales')
 
-    final.append(totales)
+    final.append(totales.length, totales)
+
+    // Aplicando JSON
+    localStorage.setItem("productos", JSON.stringify(totales))
+    console.log(localStorage.getItem('productos'))
 }
-
-
-
 
 
