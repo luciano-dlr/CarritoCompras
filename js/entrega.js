@@ -144,7 +144,7 @@ botonTotal.onclick = () => {
     })
     console.log(totales, 'totales')
 
-    // final.append(totales.length)
+    final.append(totales.length)
 
     // Aplicando JSON
     localStorage.setItem("productos", JSON.stringify(totales))
@@ -174,6 +174,7 @@ botonTotal.onclick = () => {
     // Aplicando JSON
     localStorage.setItem("productos", JSON.stringify(totales))
     console.log(localStorage.getItem('productos'))
+    // Alert
     Swal.fire(
         'Confirmado',
         'En pantalla tendras los productos',
