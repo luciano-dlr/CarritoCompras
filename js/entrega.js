@@ -99,6 +99,25 @@ for (const producto of productos) {
 
         // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
         console.log(carrito)
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Articulo Agregado'
+        })
+
+
     }
 
 }
@@ -111,7 +130,7 @@ const botonTotal = document.getElementById('button')
 
 const final = document.getElementById('carrito')
 final.className = 'list-group-item';
-final.innerHTML += `<h5>Lista final:</h5>`;
+final.innerHTML += `<h5>Productos Totales:</h5>`;
 // final.innerHTML = `${totales.precio}`;
 
 botonTotal.className = 'btn btn-outline-danger ';
@@ -121,14 +140,45 @@ botonTotal.onclick = () => {
         // console.log(producto)
         return { producto: producto.producto, precio: producto.precio }
 
+
     })
     console.log(totales, 'totales')
 
-    final.append(totales.length, totales)
+    // final.append(totales.length)
 
     // Aplicando JSON
     localStorage.setItem("productos", JSON.stringify(totales))
     console.log(localStorage.getItem('productos'))
+}
+
+const tableBody = document.querySelector("#table-contenedor");
+botonTotal.onclick = () => {
+
+
+
+
+    tableBody.innerHTML = "";
+
+    carrito.forEach((producto) => {
+        const tr = document.createElement("tr");
+        tr.className = "table-primary";
+        tr.innerHTML = `
+        <td >${producto.producto}</td>
+        <td >$${producto.precio}</td>
+        `;
+        tableBody.appendChild(tr);
+    });
+
+
+
+    // Aplicando JSON
+    localStorage.setItem("productos", JSON.stringify(totales))
+    console.log(localStorage.getItem('productos'))
+    Swal.fire(
+        'Confirmado',
+        'En pantalla tendras los productos',
+        'success'
+    )
 }
 
 
