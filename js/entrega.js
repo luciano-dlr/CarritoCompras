@@ -157,7 +157,7 @@ botonTotal.onclick = () => {
 
 
 
-    tableBody.innerHTML = "";
+    tableBody.innerHTML = '';
 
     carrito.forEach((producto) => {
         const tr = document.createElement("tr");
