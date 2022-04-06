@@ -153,11 +153,7 @@ botonTotal.onclick = () => {
 
 const tableBody = document.querySelector("#table-contenedor");
 botonTotal.onclick = () => {
-
-
-
-
-    tableBody.innerHTML = "";
+    tableBody.innerHTML = [];
 
     carrito.forEach((producto) => {
         const tr = document.createElement("tr");
@@ -168,9 +164,6 @@ botonTotal.onclick = () => {
         `;
         tableBody.appendChild(tr);
     });
-
-
-
     // Aplicando JSON
     localStorage.setItem("productos", JSON.stringify(totales))
     console.log(localStorage.getItem('productos'))
@@ -181,5 +174,3 @@ botonTotal.onclick = () => {
         'success'
     )
 }
-
-
