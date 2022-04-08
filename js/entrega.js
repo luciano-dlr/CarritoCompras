@@ -99,8 +99,9 @@ for (const producto of productos) {
 
 
     botonComprar.onclick = () => {
+
         let productoComprado = productos.find(producto => producto.id === botonComprar.id);
-        productoComprado = carrito.push({ producto: producto.producto, precio: producto.precio });
+        productoComprado = carrito.push({ id: producto.id, producto: producto.producto, precio: producto.precio });
         // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
 
         // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
@@ -127,14 +128,23 @@ for (const producto of productos) {
     }
 
     botonEliminar.onclick = () => {
-        let productoEliminado = productos.find(producto => producto.id === botonEliminar.id);
-        productoEliminado = carrito.splice(productoEliminado, 1);
+
+        // BOTON ELIMINAR ROTO//
+
+        let productoEliminado = carrito.find((e, index) => e.id == '1')
+        // carrito = carrito.find(producto => producto.id === botonEliminar.id);
+        carrito = carrito.filter(p => { JSON.stringify(p.id) !== botonEliminar.id });
+
+
+        // let productoEliminado = productos.find(producto => producto.id === botonEliminar.id);
+
         // carrito = carrito.filter((p) => p.id !== botonEliminar.id)
 
         // carrito.splice(productoEliminado);
         // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
 
         // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
+
         console.log(carrito)
 
         const Toast = Swal.mixin({
@@ -160,31 +170,30 @@ for (const producto of productos) {
 }
 
 const botonTotal = document.getElementById('button')
-
-
-
-
-
 botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
 botonTotal.innerHTML = 'Confirmar';
+
+botonTotal.onclick = () => {
+
+
+
+
+    // Aplicando JSON
+    // localStorage.setItem("productos", JSON.stringify(carrito))
+    // console.log(localStorage.getItem('productos'))
+}
+
+const tableBody = document.querySelector("#table-contenedor");
+
 botonTotal.onclick = () => {
     carrito.map(producto => {
         // console.log(producto)
-        return { producto: producto.producto, precio: producto.precio }
+        return { id: producto.id, producto: producto.producto, precio: producto.precio }
 
 
     })
     console.log('carrito: ', carrito)
 
-    final.append(carrito.length)
-
-    // Aplicando JSON
-    localStorage.setItem("productos", JSON.stringify(carrito))
-    console.log(localStorage.getItem('productos'))
-}
-
-const tableBody = document.querySelector("#table-contenedor");
-botonTotal.onclick = () => {
     tableBody.innerHTML = [];
 
     carrito.forEach((producto) => {
