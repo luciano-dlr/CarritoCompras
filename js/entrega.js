@@ -67,7 +67,7 @@ tituloPagina.innerHTML = "VENTA DE TORTAS"
 
 
 
-const carrito = [];
+let carrito = [];
 
 for (const producto of productos) {
 
@@ -79,10 +79,10 @@ for (const producto of productos) {
     const precio = `<h3>$${producto.precio}</h3>`;
 
 
-    cardCinco.className = "main__card card";
-    botonComprar.className = 'btn btn-primary';
+    cardCinco.className = "main__card card m-3";
+    botonComprar.className = 'btn btn-primary m-3';
     botonComprar.id = producto.id;
-    botonEliminar.className = 'btn btn-primary';
+    botonEliminar.className = 'btn btn-outline-danger m-3';
     botonEliminar.id = producto.id;
 
     // botonEliminar.innerHTML = botonEliminar
@@ -128,7 +128,10 @@ for (const producto of productos) {
 
     botonEliminar.onclick = () => {
         let productoEliminado = productos.find(producto => producto.id === botonEliminar.id);
-        productoEliminado = carrito.splice(producto.id, 1);
+        productoEliminado = carrito.splice(productoEliminado, 1);
+        // carrito = carrito.filter((p) => p.id !== botonEliminar.id)
+
+        // carrito.splice(productoEliminado);
         // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
 
         // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
@@ -156,32 +159,27 @@ for (const producto of productos) {
 
 }
 
-const totales = carrito
-
-
 const botonTotal = document.getElementById('button')
 
 
-const final = document.getElementById('carrito')
-final.className = 'list-group-item';
-final.innerHTML += `<h5>Productos Totales:</h5>`;
-// final.innerHTML = `${totales.precio}`;
 
-botonTotal.className = 'btn btn-outline-danger';
+
+
+botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
 botonTotal.innerHTML = 'Confirmar';
 botonTotal.onclick = () => {
-    totales.map(producto => {
+    carrito.map(producto => {
         // console.log(producto)
         return { producto: producto.producto, precio: producto.precio }
 
 
     })
-    console.log(totales, 'totales')
+    console.log('carrito: ', carrito)
 
-    final.append(totales.length)
+    final.append(carrito.length)
 
     // Aplicando JSON
-    localStorage.setItem("productos", JSON.stringify(totales))
+    localStorage.setItem("productos", JSON.stringify(carrito))
     console.log(localStorage.getItem('productos'))
 }
 
@@ -195,14 +193,12 @@ botonTotal.onclick = () => {
         tr.innerHTML = `
         <td >${producto.producto}</td>
         <td >$${producto.precio}</td>
-        <td >
-        <button id="botonEliminar" class="btn btn-outline-danger"></button></td>
         `;
         tableBody.appendChild(tr);
 
     });
     // Aplicando JSON
-    localStorage.setItem("productos", JSON.stringify(totales))
+    localStorage.setItem("productos", JSON.stringify(carrito))
     console.log(localStorage.getItem('productos'))
     // Alert
     Swal.fire(
@@ -211,7 +207,7 @@ botonTotal.onclick = () => {
         'success'
     )
 }
-// for (totales of productos) {
+// for (carrito of productos) {
 //     const botonEliminar =
 
 // }
