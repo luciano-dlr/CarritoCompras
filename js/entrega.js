@@ -65,7 +65,7 @@ tituloPagina.innerHTML = "VENTA DE TORTAS"
 
 
 
-// const carrito = [];
+
 
 const carrito = [];
 
@@ -74,6 +74,7 @@ for (const producto of productos) {
     const container = document.getElementById('container');
     const cardCinco = document.createElement('div');
     const botonComprar = document.createElement('button');
+    const botonEliminar = document.createElement('button');
     const img = `<img src="${producto.img}" alt="" class="main__card--img"</img>`;
     const precio = `<h3>$${producto.precio}</h3>`;
 
@@ -81,15 +82,20 @@ for (const producto of productos) {
     cardCinco.className = "main__card card";
     botonComprar.className = 'btn btn-primary';
     botonComprar.id = producto.id;
+    botonEliminar.className = 'btn btn-primary';
+    botonEliminar.id = producto.id;
 
+    // botonEliminar.innerHTML = botonEliminar
     cardCinco.innerHTML = img;
     cardCinco.innerHTML += `<h5>${producto.producto}</h5>`;
     cardCinco.innerHTML += precio;
 
 
+    botonEliminar.append('eliminar')
     botonComprar.append('comprar');
     container.append(cardCinco);
     cardCinco.append(botonComprar)
+    cardCinco.append(botonEliminar)
 
 
     botonComprar.onclick = () => {
@@ -120,6 +126,34 @@ for (const producto of productos) {
 
     }
 
+    botonEliminar.onclick = () => {
+        let productoEliminado = productos.find(producto => producto.id === botonEliminar.id);
+        productoEliminado = carrito.splice(producto.id, 1);
+        // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
+
+        // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
+        console.log(carrito)
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Articulo Eliminado'
+        })
+
+
+    }
+
 }
 
 const totales = carrito
@@ -133,7 +167,7 @@ final.className = 'list-group-item';
 final.innerHTML += `<h5>Productos Totales:</h5>`;
 // final.innerHTML = `${totales.precio}`;
 
-botonTotal.className = 'btn btn-outline-danger ';
+botonTotal.className = 'btn btn-outline-danger';
 botonTotal.innerHTML = 'Confirmar';
 botonTotal.onclick = () => {
     totales.map(producto => {
@@ -161,8 +195,11 @@ botonTotal.onclick = () => {
         tr.innerHTML = `
         <td >${producto.producto}</td>
         <td >$${producto.precio}</td>
+        <td >
+        <button id="botonEliminar" class="btn btn-outline-danger"></button></td>
         `;
         tableBody.appendChild(tr);
+
     });
     // Aplicando JSON
     localStorage.setItem("productos", JSON.stringify(totales))
@@ -174,3 +211,11 @@ botonTotal.onclick = () => {
         'success'
     )
 }
+// for (totales of productos) {
+//     const botonEliminar =
+
+// }
+// const botonEliminar = document.getElementById(botonEliminar);
+// botonEliminar.onclick = () => {
+//     console.log("funca")
+// }
