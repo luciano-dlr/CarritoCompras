@@ -194,12 +194,9 @@ botonTotal.onclick = () => {
     })
     console.log('carrito: ', carrito)
 
-<<<<<<< HEAD
 
-    tableBody.innerHTML = '';
-=======
     tableBody.innerHTML = [];
->>>>>>> test
+
 
     carrito.forEach((producto) => {
         const tr = document.createElement("tr");
