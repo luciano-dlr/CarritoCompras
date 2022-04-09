@@ -127,23 +127,22 @@ for (const producto of productos) {
 
     }
 
+
     botonEliminar.onclick = () => {
 
         // BOTON ELIMINAR ROTO//
 
-        let productoEliminado = carrito.find((e, index) => e.id == '1')
-        // carrito = carrito.find(producto => producto.id === botonEliminar.id);
-        carrito = carrito.filter(p => { JSON.stringify(p.id) !== botonEliminar.id });
+        let productoEliminado = carrito.findIndex((element) => {
+            JSON.stringify(element.id) == botonEliminar.id;
+        });
+
+        carrito.splice(productoEliminado - 1, 1)
 
 
-        // let productoEliminado = productos.find(producto => producto.id === botonEliminar.id);
+        // carrito = carrito.filter(p => { JSON.stringify(p.id) !== botonEliminar.id });
 
-        // carrito = carrito.filter((p) => p.id !== botonEliminar.id)
 
-        // carrito.splice(productoEliminado);
-        // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
 
-        // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
 
         console.log(carrito)
 
@@ -171,7 +170,7 @@ for (const producto of productos) {
 
 const botonTotal = document.getElementById('button')
 botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
-botonTotal.innerHTML = 'Confirmar';
+botonTotal.innerHTML = 'Mostrar Pedido';
 
 botonTotal.onclick = () => {
 
