@@ -182,6 +182,7 @@ botonTotal.onclick = () => {
     // console.log(localStorage.getItem('productos'))
 }
 
+
 const tableBody = document.querySelector("#table-contenedor");
 
 botonTotal.onclick = () => {
