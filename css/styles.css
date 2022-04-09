@@ -6,16 +6,18 @@
 .main {
     display: flex;
     justify-content: space-around;
+
 }
 
 .main__card--img {
     /* width: 50vh; */
     overflow: cover;
+    width: 23em;
 
 }
 
 .lista {
     list-style: none;
     display: flex;
-    padding: 100px;
+    padding: 30px;
 }
