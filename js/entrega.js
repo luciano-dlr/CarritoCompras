@@ -259,6 +259,7 @@ const postAPI = async () => fetch(url, {
         title: 'Carrito Confirmado'
 
     })
+    console.log(data)
 
 })
     .catch(error => {
@@ -269,5 +270,3 @@ const postAPI = async () => fetch(url, {
 
         })
     })
-
-console.log(data)
