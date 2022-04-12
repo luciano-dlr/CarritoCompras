@@ -2,35 +2,35 @@
 //  Arrays
 
 
-const productos = [
-    { id: 0, tipo: "simple", producto: "chocotorta", precio: 450, img: "img/chocotorta.jpg" },
-    { id: 1, tipo: "simple", producto: "cheesecake", precio: 550, img: "img/cheesecake.jpg" },
-    { id: 2, tipo: "alta", producto: "matilda", precio: 625, img: "img/matilda.jpg" },
-    { id: 3, tipo: "alta", producto: "oreo", precio: 600, img: "img/oreo.jpg" },
-];
+// const productos = [
+//     { id: 0, tipo: "simple", producto: "chocotorta", precio: 450, img: "img/chocotorta.jpg" },
+//     { id: 1, tipo: "simple", producto: "cheesecake", precio: 550, img: "img/cheesecake.jpg" },
+//     { id: 2, tipo: "alta", producto: "matilda", precio: 625, img: "img/matilda.jpg" },
+//     { id: 3, tipo: "alta", producto: "oreo", precio: 600, img: "img/oreo.jpg" },
+// ];
 
-//  Funcion Consulta precio por prompt
-function consultarPrecio() {
-    let pedido = prompt("Que producto desea consultar? `chocotorta``cheesecake``matilda``oreo`")
-    if (pedido == "oreo") {
-        alert(productos[3].precio);
-    }
-    else {
-        if (pedido == "matilda") {
-            alert(productos[2].precio);
-        }
-        else {
-            if (pedido == "cheesecake") {
-                alert(productos[1].precio);
-            }
-            else {
-                if (pedido == "chocotorta") {
-                    alert(productos[0].precio);
-                }
-            }
-        }
-    }
-}
+// //  Funcion Consulta precio por prompt
+// function consultarPrecio() {
+//     let pedido = prompt("Que producto desea consultar? `chocotorta``cheesecake``matilda``oreo`")
+//     if (pedido == "oreo") {
+//         alert(productos[3].precio);
+//     }
+//     else {
+//         if (pedido == "matilda") {
+//             alert(productos[2].precio);
+//         }
+//         else {
+//             if (pedido == "cheesecake") {
+//                 alert(productos[1].precio);
+//             }
+//             else {
+//                 if (pedido == "chocotorta") {
+//                     alert(productos[0].precio);
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
@@ -40,22 +40,22 @@ function consultarPrecio() {
 // consultarPrecio();
 
 
-//   Traer imagenes por class
-const tortaItem = document.getElementsByClassName('main__card--img')
-// console.log(tortaItem)
+// //   Traer imagenes por class
+// const tortaItem = document.getElementsByClassName('main__card--img')
+// // console.log(tortaItem)
 
-//  Buscar un Producto especifico
-const buscarProducto = productos.find(producto => producto.producto === "chocotorta");
-// console.log(buscarProducto);
+// //  Buscar un Producto especifico
+// const buscarProducto = productos.find(producto => producto.producto === "chocotorta");
+// // console.log(buscarProducto);
 
-// filtro por Categorias de tortas
-const buscarSimple = productos.filter(producto => producto.tipo === "simple");
-const buscarAlta = productos.filter(producto => producto.tipo === "alta");
+// // filtro por Categorias de tortas
+// const buscarSimple = productos.filter(producto => producto.tipo === "simple");
+// const buscarAlta = productos.filter(producto => producto.tipo === "alta");
 
-// Traer todos los precios con iva 
-const productosConIva = productos.map(producto => {
-    return { tipo: producto.tipo, producto: producto.producto, precio: producto.precio + (producto.precio * 1.21) }
-})
+// // Traer todos los precios con iva 
+// const productosConIva = productos.map(producto => {
+//     return { tipo: producto.tipo, producto: producto.producto, precio: producto.precio + (producto.precio * 1.21) }
+// })
 
 
 // Precio total de todos los articulos en venta
@@ -65,6 +65,8 @@ const productosConIva = productos.map(producto => {
 // console.dir(document.body);
 
 //sweet alert // Alerta Procuto eliminado
+
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -93,7 +95,7 @@ let carrito = [];
 fetch('/js/data.json')
 
     .then((res) => res.json())
-    .then(() => {
+    .then((productos) => {
         for (const producto of productos) {
 
             const container = document.getElementById('container');
@@ -184,27 +186,6 @@ fetch('/js/data.json')
         }
 
     })
-
-
-
-
-async function traerProductos() {
-    const request = await fetch('/js/data.json');
-    const response = await request.json();
-    const productos = response.data
-
-
-}
-
-traerProductos()
-
-function mostrarProductos(productos) {
-
-}
-
-
-
-
 
 
 // for (const producto of productos) {
@@ -299,9 +280,6 @@ function mostrarProductos(productos) {
 const botonTotal = document.getElementById('button')
 botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
 botonTotal.innerHTML = 'Mostrar Pedido';
-
-
-
 
 
 const tableBody = document.querySelector("#table-contenedor");
