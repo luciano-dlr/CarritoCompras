@@ -223,24 +223,51 @@ botonTotal.onclick = () => {
 }
 
 
-
 const botonConfirmar = document.getElementById('btnConfirmar')
 botonConfirmar.className += 'btn btn-outline-success m-4 d-flex justify-content-center';
 
+let url = 'https://jsonplaceholder.typicode.com/posts';
+let data = carrito;
+
 botonConfirmar.onclick = () => {
-    postAPI()
+    if (data.length > 0) {
+        postAPI()
+
+    }
+    else {
+        Toast.fire({
+            icon: 'error',
+            title: 'No tienes Productos en el Carrito'
+
+        })
+    }
 
 }
 
-var url = 'https://jsonplaceholder.typicode.com/posts';
-var data = dataProductos;
 
 const postAPI = async () => fetch(url, {
     method: 'POST',
-    body: JSON.stringify(carrito),
+    body: JSON.stringify(data),
     headers: {
         'Content-Type': 'application/json'
     }
-}).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+}).then(res => {
+    res.json()
+    console.log('Success:', res)
+    Toast.fire({
+        icon: 'success',
+        title: 'Carrito Confirmado'
+
+    })
+
+})
+    .catch(error => {
+        console.error('Error:', error)
+        Toast.fire({
+            icon: 'error',
+            title: 'Internal Server Error'
+
+        })
+    })
+
+console.log(data)
