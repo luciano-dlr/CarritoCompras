@@ -1,4 +1,14 @@
+// import *as dataProductos from './data.js';
 //  Arrays
+
+const dataProductos = [
+    { "id": 0, "tipo": "simple", "producto": "chocotorta", "precio": 450 },
+    { "id": 1, "tipo": "simple", "producto": "cheesecake", "precio": 550 },
+    { "id": 2, "tipo": "alta", "producto": "matilda", "precio": 625 },
+    { "id": 3, "tipo": "alta", "producto": "oreo", "precio": 600 },
+];
+
+
 const productos = [
     { id: 0, tipo: "simple", producto: "chocotorta", precio: 450, img: "img/chocotorta.jpg" },
     { id: 1, tipo: "simple", producto: "cheesecake", precio: 550, img: "img/cheesecake.jpg" },
@@ -56,6 +66,19 @@ const productosConIva = productos.map(producto => {
 // console.log(preciosTotal)
 // console.dir(document.body);
 
+//sweet alert // Alerta Procuto eliminado
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
 
 // Nodos
 
@@ -83,7 +106,7 @@ for (const producto of productos) {
     botonComprar.className = 'btn btn-primary m-3';
     botonComprar.id = producto.id;
     botonEliminar.className = 'btn btn-outline-danger m-3';
-    botonEliminar.id = producto.id;
+    botonEliminar.id = 'e' + producto.id;
 
     // botonEliminar.innerHTML = botonEliminar
     cardCinco.innerHTML = img;
@@ -102,22 +125,9 @@ for (const producto of productos) {
 
         let productoComprado = productos.find(producto => producto.id === botonComprar.id);
         productoComprado = carrito.push({ id: producto.id, producto: producto.producto, precio: producto.precio });
-        // productoComprado = carrito.push({ producto: productoComprado.producto, precio: productoComprado.precio });
 
-        // carritoLista.append(`${producto.producto}$${producto.precio}.........`)
         console.log(carrito)
 
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
 
         Toast.fire({
             icon: 'success',
@@ -128,40 +138,43 @@ for (const producto of productos) {
     }
 
 
-    botonEliminar.onclick = () => {
-
-        // BOTON ELIMINAR ROTO//
-
-        let productoEliminado = carrito.findIndex((element) => {
-            JSON.stringify(element.id) == botonEliminar.id;
-        });
-
-        carrito.splice(productoEliminado - 1, 1)
+    botonEliminar.onclick = async () => {
 
 
-        // carrito = carrito.filter(p => { JSON.stringify(p.id) !== botonEliminar.id });
+        let productoEliminado = carrito.findIndex(producto => 'e' + producto.id === botonEliminar.id);
+        console.log(productoEliminado)
+        if (productoEliminado !== -1) {
+            carrito.splice(productoEliminado, 1)
+
+
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Articulo Eliminado'
+            })
+
+
+        }
+        else {
+
+            Toast.fire({
+                icon: 'error',
+                title: 'Articulo Inexistente'
+            })
+
+        }
+
+
+        localStorage.setItem("productos", JSON.stringify(carrito))
+        console.log(localStorage.getItem('productos'))
+
 
 
 
 
         console.log(carrito)
 
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Articulo Eliminado'
-        })
 
 
     }
@@ -172,20 +185,14 @@ const botonTotal = document.getElementById('button')
 botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
 botonTotal.innerHTML = 'Mostrar Pedido';
 
-botonTotal.onclick = () => {
 
 
-
-
-    // Aplicando JSON
-    // localStorage.setItem("productos", JSON.stringify(carrito))
-    // console.log(localStorage.getItem('productos'))
-}
 
 
 const tableBody = document.querySelector("#table-contenedor");
 
 botonTotal.onclick = () => {
+
     carrito.map(producto => {
         // console.log(producto)
         return { id: producto.id, producto: producto.producto, precio: producto.precio }
@@ -195,6 +202,7 @@ botonTotal.onclick = () => {
     console.log('carrito: ', carrito)
 
     tableBody.innerHTML = [];
+
 
     carrito.forEach((producto) => {
         const tr = document.createElement("tr");
@@ -206,21 +214,33 @@ botonTotal.onclick = () => {
         tableBody.appendChild(tr);
 
     });
-    // Aplicando JSON
-    localStorage.setItem("productos", JSON.stringify(carrito))
-    console.log(localStorage.getItem('productos'))
-    // Alert
+
     Swal.fire(
         'Confirmado',
         'En pantalla tendras los productos',
         'success'
     )
 }
-// for (carrito of productos) {
-//     const botonEliminar =
 
-// }
-// const botonEliminar = document.getElementById(botonEliminar);
-// botonEliminar.onclick = () => {
-//     console.log("funca")
-// }
+
+
+const botonConfirmar = document.getElementById('btnConfirmar')
+botonConfirmar.className += 'btn btn-outline-success m-4 d-flex justify-content-center';
+
+botonConfirmar.onclick = () => {
+    postAPI()
+
+}
+
+var url = 'https://jsonplaceholder.typicode.com/posts';
+var data = dataProductos;
+
+const postAPI = async () => fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(carrito),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
