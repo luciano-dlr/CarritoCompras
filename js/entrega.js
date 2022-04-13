@@ -1,71 +1,5 @@
-// import *as dataProductos from './data.js';
-//  Arrays
 
-
-// const productos = [
-//     { id: 0, tipo: "simple", producto: "chocotorta", precio: 450, img: "img/chocotorta.jpg" },
-//     { id: 1, tipo: "simple", producto: "cheesecake", precio: 550, img: "img/cheesecake.jpg" },
-//     { id: 2, tipo: "alta", producto: "matilda", precio: 625, img: "img/matilda.jpg" },
-//     { id: 3, tipo: "alta", producto: "oreo", precio: 600, img: "img/oreo.jpg" },
-// ];
-
-// //  Funcion Consulta precio por prompt
-// function consultarPrecio() {
-//     let pedido = prompt("Que producto desea consultar? `chocotorta``cheesecake``matilda``oreo`")
-//     if (pedido == "oreo") {
-//         alert(productos[3].precio);
-//     }
-//     else {
-//         if (pedido == "matilda") {
-//             alert(productos[2].precio);
-//         }
-//         else {
-//             if (pedido == "cheesecake") {
-//                 alert(productos[1].precio);
-//             }
-//             else {
-//                 if (pedido == "chocotorta") {
-//                     alert(productos[0].precio);
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-
-
-
-
-// consultarPrecio();
-
-
-// //   Traer imagenes por class
-// const tortaItem = document.getElementsByClassName('main__card--img')
-// // console.log(tortaItem)
-
-// //  Buscar un Producto especifico
-// const buscarProducto = productos.find(producto => producto.producto === "chocotorta");
-// // console.log(buscarProducto);
-
-// // filtro por Categorias de tortas
-// const buscarSimple = productos.filter(producto => producto.tipo === "simple");
-// const buscarAlta = productos.filter(producto => producto.tipo === "alta");
-
-// // Traer todos los precios con iva 
-// const productosConIva = productos.map(producto => {
-//     return { tipo: producto.tipo, producto: producto.producto, precio: producto.precio + (producto.precio * 1.21) }
-// })
-
-
-// Precio total de todos los articulos en venta
-// const preciosTotal = carrito.reduce((acumulador, producto) => acumulador + producto.precio, 0);
-// const preciosTotal = productos.reduce((acumulador, producto) => acumulador + producto.precio, 0);
-// console.log(preciosTotal)
-// console.dir(document.body);
-
-//sweet alert // Alerta Procuto eliminado
-
+// TOAST (ALERT)
 
 const Toast = Swal.mixin({
     toast: true,
@@ -80,21 +14,23 @@ const Toast = Swal.mixin({
 })
 
 
-// Nodos
-
+// TITULO
 let tituloPagina = document.getElementById('pageTitle')
 tituloPagina.className = "pageTitle"
 tituloPagina.innerHTML = "VENTA DE TORTAS"
 
-
+// CARRITO VACIO 
 let carrito = [];
 
+// GET POR FETCH A JSON
 fetch('/js/data.json')
-
+    //FOR OF DE PRODUCTOS POR PROMESA UTILIZANDO EL ARCHIVO JSON 
     .then((res) => res.json())
     .then((productos) => {
+        //FOR OF DE PRODUCTOS
         for (const producto of productos) {
 
+            //NODOS
             const container = document.getElementById('container');
             const cardCinco = document.createElement('div');
             const botonComprar = document.createElement('button');
@@ -102,60 +38,66 @@ fetch('/js/data.json')
             const img = `<img src="${producto.img}" alt="" class="main__card--img"</img>`;
             const precio = `<h3>$${producto.precio}</h3>`;
 
-
+            //NODOS CLASS
             cardCinco.className = "main__card card m-3";
             botonComprar.className = 'btn btn-primary m-3';
             botonComprar.id = producto.id;
             botonEliminar.className = 'btn btn-outline-danger m-3';
             botonEliminar.id = 'e' + producto.id;
 
-            // botonEliminar.innerHTML = botonEliminar
+            //NODOS .INERHTML
             cardCinco.innerHTML = img;
             cardCinco.innerHTML += `<h5>${producto.producto}</h5>`;
             cardCinco.innerHTML += precio;
 
-
+            //NODOS APPEND
             botonEliminar.append('eliminar')
             botonComprar.append('comprar');
             container.append(cardCinco);
             cardCinco.append(botonComprar)
             cardCinco.append(botonEliminar)
 
-
+            //BOTON COMPRAR
             botonComprar.onclick = () => {
-
+                //FIND DE PRODUCTO COMPRADO SEGUN ID DE BOTON Y NODO
                 let productoComprado = productos.find(producto => producto.id === botonComprar.id);
+                //PUSH A CARRITO SEGUN LO COMPRADO
                 productoComprado = carrito.push({ id: producto.id, producto: producto.producto, precio: producto.precio });
 
                 console.log(carrito)
 
+                //TOAST (ALERT)
                 Toast.fire({
                     icon: 'success',
                     title: 'Articulo Agregado'
                 })
             }
 
-
+            //BOTON ELIMINAR
             botonEliminar.onclick = async () => {
 
-
+                //FIND DE PRODUCTO ELIMINADO SEGUN ID DE BOTON Y NODO
                 let productoEliminado = carrito.findIndex(producto => 'e' + producto.id === botonEliminar.id);
                 console.log(productoEliminado)
+
+                //SI PORDUCTO ELIMINADO ES DIFERENTE DE -1 POR METODO PSLICE, PRODUCTO ELIMINADO DEL CARRITO
                 if (productoEliminado !== -1) {
                     carrito.splice(productoEliminado, 1)
-
+                    //TOAST (ALERT)
                     Toast.fire({
                         icon: 'success',
                         title: 'Articulo Eliminado'
                     })
 
                 }
+                //SI ENCUENTRA -1,NO BORRA PRODUCTO, SALTA UN TOAST (ALERT)
                 else {
                     Toast.fire({
                         icon: 'error',
                         title: 'Articulo Inexistente'
                     })
                 }
+                //LOCALSTORAGE DE CARRITO 
                 localStorage.setItem("productos", JSON.stringify(carrito))
                 console.log(localStorage.getItem('productos'))
                 console.log(carrito)
@@ -163,45 +105,37 @@ fetch('/js/data.json')
         }
     })
 
+//BOTON MOSTRAR PEDIDO
 const botonTotal = document.getElementById('button')
 botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
 botonTotal.innerHTML = 'Mostrar Pedido';
 
-
+// CREANDO LA TABLA PARA MOSTRAR PEDIDO
 const tableBody = document.querySelector("#table-contenedor");
 
+//BOTON MOSTRAR PEDIDO (EVENTO.ONCLICK)
 botonTotal.onclick = () => {
 
-
-
-
-
+    //MAP DE CARRITO PARA MOSTRAR EN TABLA LOS PRODUCTOS Y SUS PRECIOS
     carrito.map(producto => {
-        // console.log(producto)
         return { id: producto.id, producto: producto.producto, precio: producto.precio }
-
     })
     console.log('carrito: ', carrito)
 
-
-    // Precio Total
-
+    //FUNCION PRECIO TOTAL 
     const sumaPrecio = (arr) => {
         return arr.reduce((acc, el) => acc + el.precio, 0);
     }
 
-
+    //NODO PRECIO FINAL
     const precioFinal = document.getElementById('precioFinal')
     precioFinal.innerHTML = `$${sumaPrecio(carrito)}`
     console.log(`$${sumaPrecio(carrito)}`, 'precio actual del carrito')
 
-
-
-
-
+    //VALOR INICIAL DE LA TABLA POR INNER.HTML
     tableBody.innerHTML = [];
 
-
+    //.FOREACH DE CARRITO PARA LLENAR LA TABLA CON PRODUCTO Y PRECIO 
     carrito.forEach((producto) => {
         const tr = document.createElement("tr");
         tr.className = "table-primary";
@@ -212,7 +146,7 @@ botonTotal.onclick = () => {
         tableBody.appendChild(tr);
 
     });
-
+    // TOAST (ALERT)
     Swal.fire(
         'Confirmado',
         'En pantalla tendras los productos',
@@ -220,19 +154,21 @@ botonTotal.onclick = () => {
     )
 }
 
-
-
-
+//BOTON CONFIRMAR
 const botonConfirmar = document.getElementById('btnConfirmar')
 botonConfirmar.className += 'btn btn-outline-success m-4 d-flex justify-content-center';
 
-
-
+//DIRECCION DE LA API PARA POST
 let url = 'https://jsonplaceholder.typicode.com/posts';
+
+//DATA DE POST
 let data = carrito;
 
+//BOTON CONFIRMAR (EVENTO.ONCLICK)
 botonConfirmar.onclick = () => {
+    //SI NO TIENE VALOR DATA SALTA AL ELSE
     if (data.length > 0) {
+        // FUNCION POST 
         postAPI()
 
     }
@@ -244,7 +180,7 @@ botonConfirmar.onclick = () => {
     }
 }
 
-
+// FUNCION POST DE FECH POR PROMESA
 const postAPI = async () => fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -271,21 +207,3 @@ const postAPI = async () => fetch(url, {
 
         })
     })
-
-// const result = carrito.filter(word => word.length > 2);
-
-// console.log(result);
-
-
-
-
-// const array1 = [1, 2, 3, 4];
-
-// // 0 + 1 + 2 + 3 + 4
-// const initialValue = 0;
-// const sumWithInitial = array1.reduce(
-//     (previousValue, currentValue) => previousValue + currentValue,
-//     initialValue
-// );
-
-// console.log(sumWithInitial);
