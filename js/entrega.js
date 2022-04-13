@@ -191,11 +191,8 @@ botonTotal.onclick = () => {
     }
 
     console.log(`${sumaPrecio(carrito)}`)
-
-
-
-
-
+    const precioFinal = document.getElementById('precioFinal')
+    precioFinal.innerHTML += `$${sumaPrecio(carrito)}`
 
 
 
