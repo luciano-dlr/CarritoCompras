@@ -184,16 +184,17 @@ botonTotal.onclick = () => {
     console.log('carrito: ', carrito)
 
 
-
     // Precio Total
 
     const sumaPrecio = (arr) => {
         return arr.reduce((acc, el) => acc + el.precio, 0);
     }
 
-    console.log(`${sumaPrecio(carrito)}`)
+
     const precioFinal = document.getElementById('precioFinal')
-    precioFinal.innerHTML += `$${sumaPrecio(carrito)}`
+    precioFinal.innerHTML = `$${sumaPrecio(carrito)}`
+    console.log(`$${sumaPrecio(carrito)}`, 'precio actual del carrito')
+
 
 
 
@@ -259,7 +260,7 @@ const postAPI = async () => fetch(url, {
 
     })
     console.log(data)
-    console.log('https://jsonplaceholder.typicode.com/posts')
+    console.log('https://jsonplaceholder.typicode.com/posts', 'carrito enviado')
 
 })
     .catch(error => {
