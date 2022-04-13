@@ -1,0 +1,30 @@
+[
+    {
+        "id": 0,
+        "tipo": "simple",
+        "producto": "chocotorta",
+        "precio": 450,
+        "img": "img/chocotorta.jpg"
+    },
+    {
+        "id": 1,
+        "tipo": "simple",
+        "producto": "cheesecake",
+        "precio": 550,
+        "img": "img/cheesecake.jpg"
+    },
+    {
+        "id": 2,
+        "tipo": "alta",
+        "producto": "matilda",
+        "precio": 625,
+        "img": "img/matilda.jpg"
+    },
+    {
+        "id": 3,
+        "tipo": "alta",
+        "producto": "oreo",
+        "precio": 600,
+        "img": "img/oreo.jpg"
+    }
+]
