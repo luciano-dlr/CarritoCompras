@@ -87,9 +87,6 @@ tituloPagina.className = "pageTitle"
 tituloPagina.innerHTML = "VENTA DE TORTAS"
 
 
-
-
-
 let carrito = [];
 
 fetch('/js/data.json')
@@ -132,13 +129,10 @@ fetch('/js/data.json')
 
                 console.log(carrito)
 
-
                 Toast.fire({
                     icon: 'success',
                     title: 'Articulo Agregado'
                 })
-
-
             }
 
 
@@ -150,132 +144,24 @@ fetch('/js/data.json')
                 if (productoEliminado !== -1) {
                     carrito.splice(productoEliminado, 1)
 
-
-
                     Toast.fire({
                         icon: 'success',
                         title: 'Articulo Eliminado'
                     })
 
-
                 }
                 else {
-
                     Toast.fire({
                         icon: 'error',
                         title: 'Articulo Inexistente'
                     })
-
                 }
-
-
                 localStorage.setItem("productos", JSON.stringify(carrito))
                 console.log(localStorage.getItem('productos'))
-
-
-
-
-
                 console.log(carrito)
-
-
-
-
             }
-
         }
-
     })
-
-
-// for (const producto of productos) {
-
-//     const container = document.getElementById('container');
-//     const cardCinco = document.createElement('div');
-//     const botonComprar = document.createElement('button');
-//     const botonEliminar = document.createElement('button');
-//     const img = `<img src="${producto.img}" alt="" class="main__card--img"</img>`;
-//     const precio = `<h3>$${producto.precio}</h3>`;
-
-
-//     cardCinco.className = "main__card card m-3";
-//     botonComprar.className = 'btn btn-primary m-3';
-//     botonComprar.id = producto.id;
-//     botonEliminar.className = 'btn btn-outline-danger m-3';
-//     botonEliminar.id = 'e' + producto.id;
-
-//     // botonEliminar.innerHTML = botonEliminar
-//     cardCinco.innerHTML = img;
-//     cardCinco.innerHTML += `<h5>${producto.producto}</h5>`;
-//     cardCinco.innerHTML += precio;
-
-
-//     botonEliminar.append('eliminar')
-//     botonComprar.append('comprar');
-//     container.append(cardCinco);
-//     cardCinco.append(botonComprar)
-//     cardCinco.append(botonEliminar)
-
-
-//     botonComprar.onclick = () => {
-
-//         let productoComprado = productos.find(producto => producto.id === botonComprar.id);
-//         productoComprado = carrito.push({ id: producto.id, producto: producto.producto, precio: producto.precio });
-
-//         console.log(carrito)
-
-
-//         Toast.fire({
-//             icon: 'success',
-//             title: 'Articulo Agregado'
-//         })
-
-
-//     }
-
-
-//     botonEliminar.onclick = async () => {
-
-
-//         let productoEliminado = carrito.findIndex(producto => 'e' + producto.id === botonEliminar.id);
-//         console.log(productoEliminado)
-//         if (productoEliminado !== -1) {
-//             carrito.splice(productoEliminado, 1)
-
-
-
-//             Toast.fire({
-//                 icon: 'success',
-//                 title: 'Articulo Eliminado'
-//             })
-
-
-//         }
-//         else {
-
-//             Toast.fire({
-//                 icon: 'error',
-//                 title: 'Articulo Inexistente'
-//             })
-
-//         }
-
-
-//         localStorage.setItem("productos", JSON.stringify(carrito))
-//         console.log(localStorage.getItem('productos'))
-
-
-
-
-
-//         console.log(carrito)
-
-
-
-
-//     }
-
-// }
 
 const botonTotal = document.getElementById('button')
 botonTotal.className = 'btn btn-outline-success m-4 d-flex justify-content-center';
@@ -286,13 +172,32 @@ const tableBody = document.querySelector("#table-contenedor");
 
 botonTotal.onclick = () => {
 
+
+
+
+
     carrito.map(producto => {
         // console.log(producto)
         return { id: producto.id, producto: producto.producto, precio: producto.precio }
 
-
     })
     console.log('carrito: ', carrito)
+
+
+    // Precio Total
+
+    const sumaPrecio = (arr) => {
+        return arr.reduce((acc, el) => acc + el.precio, 0);
+    }
+
+    console.log(`${sumaPrecio(carrito)}`)
+
+
+
+
+
+
+
 
     tableBody.innerHTML = [];
 
@@ -316,6 +221,8 @@ botonTotal.onclick = () => {
 }
 
 
+
+
 const botonConfirmar = document.getElementById('btnConfirmar')
 botonConfirmar.className += 'btn btn-outline-success m-4 d-flex justify-content-center';
 
@@ -333,10 +240,8 @@ botonConfirmar.onclick = () => {
         Toast.fire({
             icon: 'error',
             title: 'No tienes Productos en el Carrito'
-
         })
     }
-
 }
 
 
@@ -366,3 +271,21 @@ const postAPI = async () => fetch(url, {
 
         })
     })
+
+// const result = carrito.filter(word => word.length > 2);
+
+// console.log(result);
+
+
+
+
+// const array1 = [1, 2, 3, 4];
+
+// // 0 + 1 + 2 + 3 + 4
+// const initialValue = 0;
+// const sumWithInitial = array1.reduce(
+//     (previousValue, currentValue) => previousValue + currentValue,
+//     initialValue
+// );
+
+// console.log(sumWithInitial);
